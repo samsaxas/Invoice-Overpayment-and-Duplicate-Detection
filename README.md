@@ -5,6 +5,8 @@ in accounts-payable data, then estimates how many recoverable dollars the flagge
 Built on a simulated AP ledger (6,400 invoices, 60 vendors, 6.7% anomalies) so every anomaly has a
 ground-truth label *and* a ground-truth dollar value.
 
+The repo also keeps the original notebook version in [`prototype/`](prototype/) (see the last section).
+
 ## Pipeline
 
 ```
@@ -74,3 +76,23 @@ Outputs: `reports/metrics.json`, `reports/pr_curve.png`, `reports/feature_import
 
 Time-based split instead of random; threshold tuning on cost of review vs recovery; fuzzy vendor/number matching
 (Levenshtein); gradient boosting; SHAP explanations on the review queue.
+
+---
+
+## Prototype notebook (`prototype/`)
+
+The original version: a single notebook (`project.ipynb`) on a fixed dataset (`finance_dataset.csv`: 6,430 invoices,
+60 vendors, 6.7% anomalies) with 6 features and a 30-day look-back window. It uses different data and features from
+the pipeline above, so its numbers are not directly comparable.
+
+| Model | Result |
+|---|---|
+| Isolation Forest, `contamination` = true anomaly rate | F1 0.51 |
+| Isolation Forest, `contamination='auto'` | F1 0.48 |
+| Random Forest (class-weighted) | macro F1 0.99 (anomaly-class F1 0.98), PR-AUC 0.997 |
+
+Note: the prototype fits Isolation Forest on all rows and scores Random Forest on a held-out split, and its 5-fold CV
+is approximate (the vendor z-score is fitted once on the training split). The pipeline above scores every model on the
+same held-out split and re-fits vendor statistics inside each fold.
+
+Run it: `pip install notebook`, then `cd prototype && jupyter notebook project.ipynb`.
