@@ -1,0 +1,130 @@
+{
+  "dataset": {
+    "n_invoices": 6400,
+    "n_vendors": 60,
+    "anomaly_rate": 0.067,
+    "anomaly_counts": {
+      "none": 5971,
+      "duplicate": 172,
+      "overpayment": 129,
+      "po_price_variance": 128
+    },
+    "n_train": 5120,
+    "n_test": 1280,
+    "n_test_anomalies": 86,
+    "seed": 42
+  },
+  "isolation_forest": {
+    "precision": 0.6667,
+    "recall": 0.6977,
+    "f1": 0.6818,
+    "pr_auc": 0.8161,
+    "roc_auc": 0.9817,
+    "tp": 60,
+    "fp": 30,
+    "fn": 26,
+    "tn": 1164,
+    "value": {
+      "total_recoverable_usd": 155539.7,
+      "flagged_recoverable_usd": 106062.62,
+      "value_capture_pct": 68.19,
+      "n_flagged_for_review": 90,
+      "by_type": {
+        "duplicate": {
+          "n": 31,
+          "recall": 0.3871,
+          "recoverable_usd": 122742.86
+        },
+        "overpayment": {
+          "n": 27,
+          "recall": 0.9259,
+          "recoverable_usd": 25028.31
+        },
+        "po_price_variance": {
+          "n": 28,
+          "recall": 0.8214,
+          "recoverable_usd": 7768.53
+        }
+      }
+    }
+  },
+  "random_forest": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "pr_auc": 1.0,
+    "roc_auc": 1.0,
+    "tp": 86,
+    "fp": 0,
+    "fn": 0,
+    "tn": 1194,
+    "value": {
+      "total_recoverable_usd": 155539.7,
+      "flagged_recoverable_usd": 155539.7,
+      "value_capture_pct": 100.0,
+      "n_flagged_for_review": 86,
+      "by_type": {
+        "duplicate": {
+          "n": 31,
+          "recall": 1.0,
+          "recoverable_usd": 122742.86
+        },
+        "overpayment": {
+          "n": 27,
+          "recall": 1.0,
+          "recoverable_usd": 25028.31
+        },
+        "po_price_variance": {
+          "n": 28,
+          "recall": 1.0,
+          "recoverable_usd": 7768.53
+        }
+      }
+    },
+    "cv": {
+      "f1_mean": 0.9941,
+      "f1_std": 0.0074,
+      "folds": [
+        0.9881,
+        1.0,
+        0.9825,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "rule_baseline": {
+    "precision": 0.1903,
+    "recall": 0.9535,
+    "f1": 0.3172,
+    "pr_auc": 0.1845,
+    "roc_auc": 0.8306,
+    "tp": 82,
+    "fp": 349,
+    "fn": 4,
+    "tn": 845,
+    "value": {
+      "total_recoverable_usd": 155539.7,
+      "flagged_recoverable_usd": 155258.57,
+      "value_capture_pct": 99.82,
+      "n_flagged_for_review": 431,
+      "by_type": {
+        "duplicate": {
+          "n": 31,
+          "recall": 1.0,
+          "recoverable_usd": 122742.86
+        },
+        "overpayment": {
+          "n": 27,
+          "recall": 1.0,
+          "recoverable_usd": 25028.31
+        },
+        "po_price_variance": {
+          "n": 28,
+          "recall": 0.8571,
+          "recoverable_usd": 7768.53
+        }
+      }
+    }
+  }
+}
